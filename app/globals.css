@@ -1,0 +1,82 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------
+   Theme colors
+   Dark is the default. The inline script in layout.tsx sets
+   data-theme on <html> before the first paint.
+   ------------------------------------------------------------------ */
+:root,
+[data-theme="dark"] {
+  --background: #000000;
+  --foreground: #ffffff;
+  --muted: #a3a3a3;
+  --border: #262626;
+  --hover: #171717;
+  --button-bg: #ffffff;
+  --button-fg: #000000;
+  color-scheme: dark;
+}
+
+[data-theme="light"] {
+  --background: #ffffff;
+  --foreground: #111111;
+  --muted: #666666;
+  --border: #e5e5e5;
+  --hover: #f5f5f5;
+  --button-bg: #111111;
+  --button-fg: #ffffff;
+  color-scheme: light;
+}
+
+/* Expose the variables as Tailwind colors: bg-background, text-muted, border-line, ... */
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-line: var(--border);
+  --color-hover: var(--hover);
+  --color-button: var(--button-bg);
+  --color-button-fg: var(--button-fg);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+html {
+  scroll-padding-top: 5rem; /* keeps section headings clear of the sticky navbar */
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+}
+
+::selection {
+  background: var(--foreground);
+  color: var(--background);
+}
+
+/* Smooth theme switch + smooth scrolling, only when motion is welcome */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+  body,
+  body * {
+    transition-property: background-color, border-color, color;
+    transition-duration: 200ms;
+    transition-timing-function: ease;
+  }
+}
+
+/* Visible keyboard focus in both themes */
+:focus-visible {
+  outline: 2px solid var(--foreground);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* Show the right sun/moon icon without needing React state */
+[data-theme="light"] .only-dark,
+:root:not([data-theme="light"]) .only-light {
+  display: none;
+}
