@@ -1,9 +1,9 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
-  cacheComponents: true,
-  partialPrefetching: true,
+  // Build a fully static site into the `out/` folder (no server needed).
+  output: "export",
+  images: { unoptimized: true },
   turbopack: {
     rules: {
       "*.css": {
